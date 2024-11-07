@@ -37,7 +37,7 @@ const char kOptions[] =
     "resources-dump-vertex-index-buffers,--dump-resources-json-output-per-command,--dump-resources-dump-immutable-"
     "resources,--dump-resources-dump-all-image-subresources,--pbi-all,--preload-measurement-range";
 const char kArguments[] =
-    "--log-level,--log-file,--gpu,--gpu-group,--pause-frame,--wsi,--surface-index,-m|--memory-translation,"
+    "--log-level,--log-file,--gpu,--gpu-group,--pause-frame,--loop-frames,--wsi,--surface-index,-m|--memory-translation,"
     "--replace-shaders,--screenshots,--denied-messages,--allowed-messages,--screenshot-format,--"
     "screenshot-dir,--screenshot-prefix,--screenshot-size,--screenshot-scale,--mfr|--measurement-frame-range,--fw|--"
     "force-windowed,--fwo|--force-windowed-origin,--batching-memory-usage,--measurement-file,--swapchain,--sgfs|--skip-"
@@ -163,6 +163,7 @@ static void PrintUsage(const char* exe_name)
     GFXRECON_WRITE_CONSOLE("          \t\tReplay may fail if the specified device is not compatible with the");
     GFXRECON_WRITE_CONSOLE("          \t\toriginal capture devices.");
     GFXRECON_WRITE_CONSOLE("  --pbi-all\t\tPrint all block information.");
+    GFXRECON_WRITE_CONSOLE("  --loop-frames <N1>-<N2>\t\tLoop frames infinity from N1 to N2");
     GFXRECON_WRITE_CONSOLE(
         "  --pbis <index1,index2>\t\tPrint block information between block index1 and block index2.");
 #if defined(WIN32)
