@@ -199,6 +199,24 @@ bool Application::PlaySingleFrame()
 
     if (file_processor_)
     {
+        uint32_t curFrameCount = file_processor_->GetCurrentFrameNumber();
+        if ((loopRange_.first > 0) && (loopRange_.last >= loopRange_.first))
+        {
+            if (inLoopMode_ == false)
+            {
+                uint64_t readOffset = file_processor_->GetNumBytesRead();
+                m_streamReadOffset.push_back(readOffset);
+            }
+
+            if (curFrameCount > loopRange_.last)
+            {
+                inLoopMode_     = true;
+                uint64_t offset = m_streamReadOffset[loopRange_.first];
+                file_processor_->SeekToOffset(offset);
+                file_processor_->SetCurrentFrameNumber(loopRange_.first-1);
+            }
+        }
+
         success = file_processor_->ProcessNextFrame();
 
         if (success)

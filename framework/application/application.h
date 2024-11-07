@@ -29,6 +29,7 @@
 #include "decode/window.h"
 #include "util/defines.h"
 #include "util/date_time.h"
+#include "util/options.h"
 #include "graphics/fps_info.h"
 
 #include <memory>
@@ -70,6 +71,10 @@ class Application final
 
     void SetPauseFrame(uint32_t pause_frame) { pause_frame_ = pause_frame; }
 
+    void SetLoopFrames(util::UintRange frameRange) { loopRange_ = frameRange; }
+
+    util::UintRange GetLoopFrames() const { return loopRange_; }
+
     bool PlaySingleFrame();
 
     void ProcessEvents(bool wait_for_input);
@@ -100,6 +105,10 @@ class Application final
     std::string                                                  cli_wsi_extension_; ///< WSI extension selected on CLI, empty string if no CLI selection
     graphics::FpsInfo*                                           fps_info_;          ///< A optional FPS info object that logs the FPS across a configured framerange.
                                                                                      ///< capture file data.
+    std::vector<uint64_t>                                        m_streamReadOffset; ///< each frame's read offset
+    util::UintRange                                              loopRange_ {};
+    bool                                                         inLoopMode_ {};
+    ///< capture file data.
     // clang-format on
 };
 

@@ -54,7 +54,7 @@
 #ifndef GFXRECON_PLATFORM_SETTINGS_H
 #define GFXRECON_PLATFORM_SETTINGS_H
 
-const char kApplicationName[] = "GFXReconstruct Replay";
+const char kApplicationName[] = "GFXR (GCS) Replay";
 const char kCaptureLayer[]    = "VK_LAYER_LUNARG_gfxreconstruct";
 
 const char kHelpShortOption[]                    = "-h";
@@ -124,6 +124,8 @@ const char kPrintBlockInfoAllOption[]             = "--pbi-all";
 const char kPrintBlockInfosArgument[]             = "--pbis";
 const char kNumPipelineCreationJobs[]             = "--pipeline-creation-jobs";
 const char kPreloadMeasurementRangeOption[]       = "--preload-measurement-range";
+const char kLoopFrames[]                          = "--loop-frames";
+
 #if defined(WIN32)
 const char kDxTwoPassReplay[]             = "--dx12-two-pass-replay";
 const char kDxOverrideObjectNames[]       = "--dx12-override-object-names";
@@ -652,6 +654,22 @@ static float GetDumpResourcesScale(const gfxrecon::util::ArgumentParser& arg_par
     }
 
     return scale;
+}
+
+static gfxrecon::util::UintRange GetLoopFrameRanges(
+    const gfxrecon::util::ArgumentParser& arg_parser)
+{
+    gfxrecon::util::UintRange frameRange = {};
+    const auto& value = arg_parser.GetArgumentValue(kLoopFrames);
+    if (!value.empty())
+    {
+        std::vector<gfxrecon::util::UintRange> frame_ranges =
+            gfxrecon::util::GetUintRanges(value.c_str(), "loop frames");
+
+        frameRange = frame_ranges[0];
+    }
+
+    return frameRange;
 }
 
 static std::vector<gfxrecon::decode::ScreenshotRange>

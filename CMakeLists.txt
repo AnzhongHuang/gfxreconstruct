@@ -162,7 +162,7 @@ if(MSVC)
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /LARGEADDRESSAWARE")
 
     # Add option to enable/disable D3D12 support.
-    option(D3D12_SUPPORT "Build with Direct3D 12 support enabled" ON)
+    option(D3D12_SUPPORT "Build with Direct3D 12 support enabled" OFF)
 
     # Add option to enable/disable launcher and interceptor.
     option(BUILD_LAUNCHER_AND_INTERCEPTOR "Build launcher and interceptor" OFF)

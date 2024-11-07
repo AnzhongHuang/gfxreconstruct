@@ -475,6 +475,18 @@ bool FileProcessor::ReadBytes(void* buffer, size_t buffer_size)
     return false;
 }
 
+bool FileProcessor::SeekToOffset(size_t offset)
+{
+    bool success = util::platform::FileSeek(file_descriptor_, offset, util::platform::FileSeekSet);
+
+    if (success)
+    {
+        bytes_read_ = offset;
+    }
+
+    return success;
+}
+
 bool FileProcessor::SkipBytes(size_t skip_size)
 {
     bool success = util::platform::FileSeek(file_descriptor_, skip_size, util::platform::FileSeekCurrent);

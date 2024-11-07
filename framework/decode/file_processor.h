@@ -97,7 +97,7 @@ class FileProcessor
     const std::vector<format::FileOptionPair>& GetFileOptions() const { return file_options_; }
 
     uint32_t GetCurrentFrameNumber() const { return current_frame_number_; }
-
+    void     SetCurrentFrameNumber(uint32_t frame) { current_frame_number_ = frame; }
     uint64_t GetNumBytesRead() const { return bytes_read_; }
 
     Error GetErrorState() const { return error_state_; }
@@ -113,6 +113,7 @@ class FileProcessor
         block_index_to_          = block_index_to;
     }
 
+    bool SeekToOffset(size_t offset);
   protected:
     bool ContinueDecoding();
 
@@ -121,6 +122,7 @@ class FileProcessor
     virtual bool ReadBytes(void* buffer, size_t buffer_size);
 
     bool SkipBytes(size_t skip_size);
+
 
     bool ProcessFunctionCall(const format::BlockHeader& block_header, format::ApiCallId call_id, bool& should_break);
 
